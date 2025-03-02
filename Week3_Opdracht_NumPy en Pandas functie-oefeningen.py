@@ -1,187 +1,121 @@
 
-
-##  GOREV 1:
-##  Seaborn kutuphanesi icinden Titanic veri setini tanimlayiniz
 import seaborn as sns
 from pandas import isnull
+import pandas as pd
+import numpy as np
 
+# Taak 1:
+## Laad de Titanic dataset uit de Seaborn-bibliotheek
 df = sns.load_dataset("titanic")
 
-#****************************************************************************
-##  GOREV 2:
-##  Titanic veri setindeki kadin ve erkek yolcularin sayisini bulunuz.
+# Taak 2:
+## Zoek het aantal vrouwen en mannen passagiers in de Titanic dataset.
 df.head()
 df["sex"].value_counts()
 
-#****************************************************************************
-##  GOREV 3:
-##  Her bir sutuna ait unique degerlerin sayisini bulunuz.
+# Taak 3:
+## Zoek het aantal unieke waarden voor elke kolom.
 df.nunique()
 
-#****************************************************************************
-##  GOREV 4:
-##  'pclass' degiskeninin unique degerlerinin sayisini bulunuz.
+# Taak 4:
+## Zoek het aantal unieke waarden voor de 'pclass' kolom.
 df['pclass'].nunique()
 
-#****************************************************************************
-##  GOREV 5:
-##  'pclass'  ve ' parch' degiskeninin unique degerlerinin sayisini bulunuz.
+# Taak 5:
+## Zoek het aantal unieke waarden voor de 'pclass' en 'parch' kolommen.
 column = ["pclass", "parch"]
 df[column].nunique()
 
-#****************************************************************************
-##  GOREV 6:
-##  'embarked' degiskeninin tipini kontrol ediniz.
-## Tipini category olarak degistiriniz ve tekrar kontrol ediniz.
-
+# Taak 6:
+## Controleer het datatype van de 'embarked' kolom.
+## Verander het naar 'category' en controleer opnieuw.
 df['embarked'].dtype
-        # -->dtype('O')
-
+## -->dtype('O')
 df['embarked'] = df['embarked'].astype('category')
 df['embarked'].dtype
-        # -->CategoricalDtype(categories=['C', 'Q', 'S'], ordered=False, categories_dtype=object)
+## -->CategoricalDtype(categories=['C', 'Q', 'S'], ordered=False, categories_dtype=object)
 
-#****************************************************************************
-##  GOREV 7:
-##  'embarked' degeri 'C' olanlarin tum bilgilerini isteyiniz
-
+# Taak 7:
+## Haal alle gegevens op van passagiers die 'C' zijn in de 'embarked' kolom.
 df[df["embarked"] == 'C']
 
-#****************************************************************************
-##  GOREV 8:
-##  'embarked' degeri 'S' olmayanlarin tum bilgilerini isteyiniz
+# Taak 8:
+## Haal alle gegevens op van passagiers die niet 'S' zijn in de 'embarked' kolom.
 df[df["embarked"] != 'S']
 
-#****************************************************************************
-##  GOREV 9:
-##  Yasi 30 dan kucuk olan kadin yolcularin tum bilgilerini gosteriniz
+# Taak 9:
+## Haal alle gegevens op van vrouwelijke passagiers die jonger zijn dan 30 jaar.
 df[(df["age"] < 30) & (df["sex"] == 'female')]
 
-#****************************************************************************
-##  GOREV 10:
-##  'Fare'i 500 den buyuk ve yasi 70 den buyuk yolcularin bilgilerini gosteriniz
+# Taak 10:
+## Haal gegevens op van passagiers waarvan de 'Fare' groter is dan 500 en de leeftijd ouder is dan 70.
 df.columns
 df[(df["fare"]  > 500) & (df["age"] > 70)]
 
-#****************************************************************************
-##  GOREV 11:
-##  Her bir degiskendeki bos degerlerin toplamini bulunuz.
+# Taak 11:
+## Zoek het totaal aantal ontbrekende waarden in elke kolom.
 df.isnull().sum()
 
-#****************************************************************************
-##  GOREV 12:
-##  'who' degiskenini dataframe den cikariniz.
+# Taak 12:
+## Verwijder de 'who' kolom uit de DataFrame.
 df.drop("who", axis= 1).head()
 
-#****************************************************************************
-##  GOREV 13:
-##  'deck'degiskenindeki bos degerleri deck degiskeninin en cok tekrar eden degeri (mode) ile doldurunuz.
-
-# 'deck' sütunundaki en çok tekrar eden değeri (mode) bulalım
-df['deck'].value_counts() ##---> degerlerin sayisal ifadesi
-
-mode_value = df['deck'].mode()[0]  ##--> 'C'   en çok tekrar eden değeri alır.
-                                   # mode() fonksiyonu bir seri döndürdüğü için,
-                                   #   [0] ile ilk değeri alıyoruz.
-
+# Taak 13:
+## Vul de ontbrekende waarden in de 'deck' kolom met de meest voorkomende waarde (mode).
+# Zoek de meest voorkomende waarde in de 'deck' kolom
+df['deck'].value_counts()  ##--> Aantal waarden
+mode_value = df['deck'].mode()[0]  ##--> 'C', de meest voorkomende waarde.
+## Omdat mode() een serie retourneert, gebruiken we [0] om de eerste waarde te verkrijgen.
 df['deck'] = df['deck'].fillna(mode_value)
-df["deck"]  ##--Tum Column u gosterir
+df["deck"]  ## Toont de gehele kolom
 
-#****************************************************************************
-##  GOREV 14:
-##  'age' degiskenindeki bos degerleri ege degiskeninin medyani ile doldurunuz.
-
+# Taak 14:
+## Vul de ontbrekende waarden in de 'age' kolom met de mediaan van de 'age' kolom.
 df_median = df["age"].median()
 df['age'] = df['age'].fillna(df_median)
 df["age"]
 
-#****************************************************************************
-##  GOREV 15:
-##  'survived' degiskeninin 'pclass' ve 'cinsiyet' degiskenleri kiriliminda
-    ## sum, count, mean degerlerini bulunuz
-
+# Taak 15:
+## Zoek de sum, count en mean van de 'survived' kolom voor de verschillende combinaties van 'pclass' en 'sex' kolommen.
 df.groupby(["pclass","sex"]).agg({"survived": ["sum", "count", "mean"]})
 
-#****************************************************************************
-##  GOREV 16:
-##  30 yasin altinda olanlar 1; 30 yasin ustunde olanlara 0 verecek bir fonksiyon yazin.
-##  yazdiginiz fonksiyonu kullanarak titanik veri setinde 'age_flag' adinda bir degisken olusturun.
-##  (apply ve lambda yapilarini kullaniniz)
-
-# 'age_flag' sütununu oluşturup, 30'dan küçükse 1, aksi takdirde 0 atayalım
+# Taak 16:
+## Maak een functie die 1 geeft voor passagiers jonger dan 30 jaar en 0 voor de rest. Voeg een nieuwe kolom 'age_flag' toe aan de Titanic dataset.
+## Gebruik apply en lambda voor de oplossing.
 df['age_flag'] = df['age'].apply(lambda x: 1 if x < 30 else 0)
-
 print(df)
 
-#****************************************************************************
-##  GOREV 17:
-##  Seaborn kutuphanesi icerisinden 'Tips' veri setini tanimlayiniz.
+# Taak 17:
+## Laad de 'Tips' dataset uit de Seaborn-bibliotheek.
 df2 = sns.load_dataset("tips")
 
-##  GOREV 18:
-## 'Time' degiskeninin kategorilerine (Dinner, Lunch) gore
-##  total_bill degerlerinin toplamini, min,max ve ortalamasini bulunuz.
-
+# Taak 18:
+## Zoek de som, min, max en gemiddelde waarde van de 'total_bill' kolom, gegroepeerd op de 'time' kolom (Dinner, Lunch).
 df2.head()
 df2.groupby("time")[["total_bill"]].agg(["min", "max", "mean"]).unstack()
-
 df2.groupby("time").agg({"total_bill":["min", "max", "mean"]})
 
-#****************************************************************************
-##  GOREV 19:
-##  Gunlere ve time gore total_bill degerlerinin toplamini, min, max ve ortalamasini bulunuz.
-
+# Taak 19:
+## Zoek de som, min, max en gemiddelde waarde van de 'total_bill' kolom, gegroepeerd op de dagen ('day') en 'time'.
 df2.groupby(["day", "time"]).agg({"total_bill":["sum","min", "max", "mean"]})
 
-#****************************************************************************
-##  GOREV 20:
-##  Lunch zamanina ve kadin musterilere ait 'total_bill ve tip' degerlerinin 'day''e gore
-##  toplamini, min, max ve ortalamasini bulunuz.
-import pandas as pd
-
-import pandas as pd
-
-# "Lunch" zamanındaki ve "Female" müşterilere ait verileri filtrele
-female_lunch = df2[(df2["sex"] == "Female") & (df2["time"] == "Lunch")]  ## daha guvenli. kolon adi farkli karakter icerebilir
-# veya
-female_lunch1 = df2[(df2.sex == "Female") & (df2.time == "Lunch")]  ## Pandas column adini bir fonksiyon veya property sanabilir.
-# Günlere (day) göre total_bill ve tip değerlerinin toplamı, min, max ve ortalamasını hesapla
+# Taak 20:
+## Zoek de som, min, max en gemiddelde waarde van 'total_bill' en 'tip' voor vrouwelijke klanten tijdens 'Lunch', gegroepeerd op 'day'.
+female_lunch = df2[(df2["sex"] == "Female") & (df2["time"] == "Lunch")]
 female_lunch.groupby("day").agg({"total_bill":["sum", "min", "max", "mean"],
                                  "tip":["sum", "min", "max", "mean"]})
 
-
-
-
-#****************************************************************************
-##  GOREV 21:
-##  'size' i 3 den kucuk, 'total_bill' 10 dan buyuk olan siparislerin ortalamasi nedir? [loc kullaniniz)
-import numpy as np
-df2.head()
-
-size_total = df2.loc[(df2.loc[:, "size"] < 3) & (df2.loc[:, "total_bill"] > 10),"total_bill"].mean()  ## Loc kullanimda adres belirtmek gerekir. 'total_bill'
-
-size_total.mean()  ## Bazi sutunlarda categorik veri oldugu icin hata veriyor.
+# Taak 21:
+## Wat is het gemiddelde van 'total_bill' voor bestellingen waarvan 'size' minder is dan 3 en 'total_bill' groter dan 10? Gebruik loc.
+size_total = df2.loc[(df2.loc[:, "size"] < 3) & (df2.loc[:, "total_bill"] > 10),"total_bill"].mean()
 print(size_total)
 
-size_total.apply(np.mean)  ## Bazi sutunlarda categorik veri oldugu icin hata veriyor.
-
-size_total.transform(lambda x: (x.mean()))  ## Bazi sutunlarda categorik veri oldugu icin hata veriyor.
-
-#****************************************************************************
-##  GOREV 22:
-## 'total_bill_tip_sum adinda yeni bir degisken olusturunuz.
-##  Her bir musterinin odedigi 'totalbill' ve 'tip' in toplamini versin
-
-# 'tip' ve 'total_bill' sütunlarının toplamını 'total_bill_tip_sum' adında yeni bir sütun olarak ekleyelim
+# Taak 22:
+## Maak een nieuwe kolom 'total_bill_tip_sum' waarin de som van 'total_bill' en 'tip' voor elke klant wordt weergegeven.
 df2['total_bill_tip_sum'] = df2['tip'] + df2['total_bill']
 
-#****************************************************************************
-##  GOREV 23:
-##  'total_bill_tip_sum' degiskenine gore buyukten kucuge gore siralayiniz ve
-##  ilk 30 kisiyi yeni bir dataframe'e atayiniz.
-
+# Taak 23:
+## Sorteer de DataFrame op 'total_bill_tip_sum' van groot naar klein en sla de top 30 op in een nieuwe DataFrame.
 sorted_df = df2.sort_values(by='total_bill_tip_sum', ascending=False)
-
-# İlk 30
 top_30 = sorted_df.head(30)
 

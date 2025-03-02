@@ -1,10 +1,10 @@
 ####################################################################
 #####################################################################
-##                           HUISWERK - 2                         ##
+##                           OPDRACHT - 2                         ##
 #####################################################################
 #####################################################################
 
-# VRAAG 1 (Verilen degerlerin veri yapilari nedir?)
+# VRAAG 1 (Wat zijn de gegeven waarden voor datatypes?)
 #############
 x= 8
 
@@ -38,33 +38,33 @@ s = {"Python","Machine Learning", "Data Science"}
 
 type(s)
 
-# VRAAG 2 (Verilen string ifadenin tum harfleri buyuk harf olsun.
-# Virgul ve nokta yerine space koyunuz,
-# Kelime kelime ayiriniz)
+#VRAAG 2 (Maak alle letters in de gegeven string hoofdletters.
+# Vervang komma's en punten door spaties en splits de string in afzonderlijke woorden.)
 #############
 text = "The goal is to turn data into information, and information into insight."
 
-# Virgül ve noktayı boşluk ile değiştir
+# Vervang komma's en punten door een spatie
 text = text.replace(",", "").replace(".", "")
 
-# Kelimeleri bölerek listeye at
+# Splits de woorden en zet ze in een lijst
 word_list = text.split()
 
 print(word_list)
 # ['The', 'goal', 'is', 'to', 'turn', 'data', 'into', 'information', 'and', 'information', 'into', 'insight']
 
-# VRAAG 3 (Verilen listeye belirtilen adimlari uygulayiniz)
+
+# VRAAG 3 (Voer de onderstaande stappen uit op de gegeven lijst.)
 #############
 lst = ["D", "A","T","A","S","C","I","E","N","C","E"]
 
-#Adim1_ Listenin eleman sayisi?
+# Stap1_ Hoeveel elementen heeft de lijst?
 len(lst)  #  --> 11
 
-#Adim2_ Sifirinci ve onuncu indexdeki elemanlar?
+# Stap2_ Het element op index 0 en index 10?
 lst[0]  # --> "D"
 lst[10]  # --> "E"
 
-#Adim3_ Verilen liste uzerinden ["D","A","T","A"] listesi olusturunuz
+# Stap3_ Maak een lijst met de elementen ["D","A","T","A"]
 lest_k = lst[0:4]
 
 #**************************
@@ -72,53 +72,56 @@ new_list = []
 for i in lst:
     if i == "D" or i == "T" or i == "A":
         new_list.append(i)
-print(new_list)    # Çıktı: ['D', 'A', 'T', 'A']
+print(new_list)    # Uitvoer: ['D', 'A', 'T', 'A']
 
 #**********************
-new_list = [i for i in lst if i == "D" or i == "T" or i == "A"] # i elemanlari alip new liste atiyor.
-print(new_list)  # Çıktı: ['D', 'A', 'T', 'A']
+new_list = [i for i in lst if i == "D" or i == "T" or i == "A"]  # Voeg de elementen "D", "T" of "A" toe aan de nieuwe lijst.
+print(new_list)  # Uitvoer: ['D', 'A', 'T', 'A']
 
-#Adim4_ Sekizinci indexteki elemani siliniz.
+# Stap4_ Verwijder het element op index 8.
 dir(lst)
 lst.pop(8)
 print(lst)
 
-#Adim5_ Yeni bir eleman ekleyiniz
+# Stap5_ Voeg een nieuw element toe.
 lst.append("F")
 
-#Adim6_ Sekizinci indexe "N" elemanini tekrar eklayiniz
+# Stap6_ Voeg het element "N" opnieuw toe op index 8.
 lst.insert(8, "N")
 
-# VRAAG 4 (Verilen sozluk yapisina belirtilen adimlari uygulayiniz)
+
+# VRAAG 4 (Voer de aangegeven stappen uit op de gegeven woordenboekstructuur.)
 #############
 dict = { "Cristian": ["America", 18],
          "Daisy": ["England", 12],
          "Antonio": [ "Spain", 22],
          "Dante": ["Italy", 25]}
 
-#Adim1_ KEY degerlerine erisiniz
+# Stap1_ Verkrijg de sleutels (keys)
 dict.keys()
 
-#Adim2_ VALUE degerlerine erisiniz
+# Stap2_ Verkrijg de waarden (values)
 dict.values()
 
-#Adim3_ Daisy key ine ait 12 degerini 13 olarak guncelleyiniz
+# Stap3_ Werk de waarde van de sleutel "Daisy" bij naar 13 in plaats van 12
 dict["Daisy"] = ["England", 13]
 
 dict["Daisy"][1] = 13
 
-#Adim4_ Key degeri "Ahmet" value degeri [Turkey,24] olan yeni deger ekle
+# Stap4_ Voeg een nieuw element toe: sleutel "Ahmet", waarde ["Turkey", 24]
 dict.update({"Ahmet" : ["Turkey", 24]})
 
-#Adim5_ Antonio' yu siliniz
+# Stap5_ Verwijder "Antonio"
 dict.pop("Antonio")
 
 
-# VRAAG 5 (Parametre olarak bir liste alan, listenin icerisindeki tek ve cift sayilari ayri ayri listelere atayabilen
-#                   ve bu listeleri return eden fonksiyon yaziniz)
+
+# VRAAG 5 (Schrijf een functie die een lijst als parameter neemt en de even
+# en oneven getallen in aparte lijsten plaatst en deze lijsten retourneert.)
 #############
 l = [2,13,18,93,22]
 
+l = [2,13,18,93,22]
 
 def delen(lis):
      even_list = []
@@ -130,29 +133,23 @@ def delen(lis):
                odd_list.append(i)
      return even_list, odd_list
 
-even_list, odd_list = delen(list)  ## fonksiyon icinde return tarafindan dondurulen iki liste disarida farkli iki liste degiskenine ataniyor.
+even_list, odd_list = delen(list)  ## De twee lijsten die worden geretourneerd door de functie, worden toegewezen aan twee afzonderlijke variabelen buiten de functie.
 
 delen(l)
 
-# VRAAG 6 (Ilk uc ogrenci Muhendislik; son uc ogrenci Tip fakultesi ogrencisidir.
-# listede ki ogrencileri fakultelere gore yazdir. Enumerate kullaniniz)
+# VRAAG 6 (De eerste drie studenten zijn van de Faculteit Ingenieurswetenschappen;
+# de laatste drie studenten zijn van de Faculteit Geneeskunde.
+# Print de studenten op basis van hun faculteit. Gebruik enumerate.)
 #############
 students = ["Ali", "Veli","Ayse","Talat", "Zeynep", "Ahmet"]
 
 for i, student in enumerate(students, 1):
     if i < 4 :
-        print(f"Muhendislik Fakultesi {i}. ogrenci : {student}")
+        print(f"Faculteit Ingenieurswetenschappen {i}. student: {student}")
 
     else:
-        print(f"Tıp Fakültesi {i - 3}. öğrenci: {student}")
+        print(f"Faculteit Geneeskunde {i - 3}. student: {student}")
 
-
-#Muhendislik Fakultesi 1. ogrenci : Ali
-#Muhendislik Fakultesi 2. ogrenci : Veli
-#Muhendislik Fakultesi 3. ogrenci : Ayse
-#Tıp Fakültesi 1. öğrenci: Talat
-#Tıp Fakültesi 2. öğrenci: Zeynep
-#Tıp Fakültesi 3. öğrenci: Ahmet
 #****************************************************************
 messages = [
     f"Muhendislik Fakultesi {i}. ogrenci : {student}" if i < 4
@@ -163,7 +160,8 @@ messages = [
 for message in messages:
     print(message)
 
-# VRAAG 7 (Asagidaki 3 adet listeyi ZIP kodu kullanarak ders bilgilerini yazdiriniz)
+# VRAAG 7 (Gebruik de ZIP-functie om de onderstaande 3 lijsten samen te voegen
+# en de cursusinformatie af te drukken.)
 #############
 Les_code = ["CMP1005", "PS1001", "HUK1005", "SEN2204"]
 Studie_punten = [3,4,2,4]
@@ -172,16 +170,13 @@ quatum = [30,75,150,25]
 algemeen = zip(Les_code, Studie_punten, quatum)
 
 for code, punten, persoon  in algemeen:
-    print(f"Kredisi {punten} olan {code} kodlu dersin kontenjani {persoon} kisidir.")
-
-#Kredisi 3 olan CMP1005 kodlu dersin kontenjani 30 kisidir.
-#Kredisi 4 olan PS1001 kodlu dersin kontenjani 75 kisidir.
-#Kredisi 2 olan HUK1005 kodlu dersin kontenjani 150 kisidir.
-#Kredisi 4 olan SEN2204 kodlu dersin kontenjani 25 kisidir.
+    print(f"De cursus met code {code}, heeft {punten} studiepunten en de capaciteit is {persoon} personen.")
 
 
-# VRAAG 8 (Asagida verilen setlerden 1. set 2. seti kapsiyor ise ortak elemanlarini;
-# eger kapsamiyor ise 2. setin 1. setten farkini yazdiracak fonksiyonu kodlayiniz)
+
+# VRAAG 8 (Als de eerste set de tweede set bevat,
+# print dan de gemeenschappelijke elementen;
+# als dat niet het geval is, print dan het verschil van de tweede set ten opzichte van de eerste set.)
 #############
 
 kume1 = set(["data", "python"])
@@ -191,4 +186,5 @@ if kume1.issuperset(kume2):
     print(kume1.intersection(kume2))
 else:
     print(kume2.difference(kume1))
+
 
