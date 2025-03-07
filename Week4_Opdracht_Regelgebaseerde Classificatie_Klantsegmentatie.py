@@ -17,11 +17,12 @@ en het gemiddelde inkomen te voorspellen dat nieuwe klanten aan het bedrijf kunn
 
 import pandas as pd
 #csv okuma
-df = pd.read_csv("customers.csv", sep = ",")
+df = pd.read_csv(r"C:\Users\onayk\PycharmProjects\Data-Science-Opdrachten\customers.csv", sep = ",")
 
 #*******************************************************************************
 ##  VRAAG 2 (Hoeveel unieke PLATFORM waarden zijn er? Wat zijn de frequenties?)
 
+df["PLATFORM"].unique()
 df["PLATFORM"].nunique()
 df["PLATFORM"].value_counts().count()
 
@@ -112,10 +113,18 @@ labels = ["0-18", "19-23", "24-30", "31-40", "41-70"]
 agg_df["AGE"] = pd.cut(agg_df["AGE"], [0, 18, 23, 30, 40, 70], labels = labels)
 
 ###############################################################
-#TAAK-6 Maak nieuwe niveau-gebaseerde klantgroepen. Voeg een nieuwe variabele toe: customer_profile.
+#TAAK-6 Maak nieuwe niveau-gebaseerde klantgroepen.
+# Voeg een nieuwe variabele toe: customer_profile.
 ###############################################################
 
 
+
+agg_df['customer_profile'] = agg_df.apply(
+    lambda row: f"{row['REGION']}_{row['PLATFORM']}_{row['GENDER']}_{row['AGE']}", axis=1
+)
+
+
+agg_df= agg_df.groupby('customer_profile')['PRICE'].mean().reset_index()
 
 
 
@@ -131,14 +140,9 @@ maximale en som van de prijs op). Hint: gebruik pd.qcut(agg_df[“PRICE”], 4, 
 """
 ###############################################################
 
+agg_df["SEGMENT"] = pd.cut(agg_df["PRICE"], 4, labels = ["D", "C", "B", "A"])
 
-
-
-
-
-
-
-
+agg_df.groupby("SEGMENT").agg({"PRICE": ["mean", "max", "sum"]})
 
 ###############################################################
 #TAAK-8
@@ -150,10 +154,22 @@ In welk segment valt een 35-jarige Franse vrouw die iOS gebruikt en hoeveel inko
 """
 ###############################################################
 
+# Profielen van Nieuwe gebruikers
+new_user_1 = "tur_android_female_31-40"
+new_user_2 = "fra_ios_female_31-40"
 
+agg_df[agg_df["customer_profile"] == new_user_1]
+agg_df[agg_df["customer_profile"] == new_user_2]
 
+#*****************************************************************************
 
+# Voor Alle Lijnen
+pd.set_option('display.max_rows', None)
 
+# Voor alle kolommen
+pd.set_option('display.max_columns', None)
+
+print(agg_df)
 
 
 
