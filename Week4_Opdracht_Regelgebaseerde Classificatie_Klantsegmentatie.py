@@ -50,6 +50,7 @@ df.groupby("REGION").size()
 ##  VRAAG 6 (Hoeveel winst is er gemaakt per land?)
 
 df.groupby("REGION")["PRICE"].sum()
+df.groupby('REGION').agg({'PRICE': 'sum'})
 
 #*******************************************************************************
 ##  VRAAG 7 (Wat zijn de verkoopcijfers per PLATFORM type?)
@@ -61,24 +62,24 @@ df.groupby("PLATFORM").size()
 ##  VRAAG 8 (Wat zijn de gemiddelde PRICE waarden per land?)
 
 df.groupby("REGION")["PRICE"].median()
-
+df.groupby('REGION').agg({'PRICE': 'median'})
 
 #*******************************************************************************
 ##  VRAAG 9 (Wat zijn de gemiddelde PRICE waarden per PLATFORM?)
 
 df.groupby("PLATFORM")["PRICE"].median()
-
+df.groupby('PLATFORM').agg({'PRICE': 'median'})
 #*******************************************************************************
 ##  VRAAG 10 (Wat zijn de gemiddelde PRICE waarden per REGION-PLATFORM combinatie?)
 
 df.groupby(["REGION", "PLATFORM"])["PRICE"].median()
-
+df.groupby(['REGION', "PLATFORM"]).agg({'PRICE': 'median'})
 
 ###############################################################
 #TAAK-2 Wat zijn de gemiddelde inkomsten per region, platform, gender, leeftijdsgroep?
 ###############################################################
 df.groupby(["REGION", "PLATFORM", "GENDER", "AGE"])["PRICE"].median()
-
+df.groupby(['REGION', "PLATFORM", "GENDER", "AGE"]).agg({'PRICE': 'median'})
 
 ###############################################################
 #TAAK-3 Sorteer de output op aflopende volgorde van PRICE en sla de resultaten op als agg_df.
@@ -87,6 +88,7 @@ agg_df = (df.groupby(["REGION", "PLATFORM", "GENDER", "AGE"])["PRICE"]
           .median()
           .sort_values(ascending = False))
 
+agg_df = df.groupby(['REGION', "PLATFORM", "GENDER", "AGE"]).agg({'PRICE': 'median'})
 ###############################################################
 #TAAK-4 Definieer de namen in de index als variabelen.
 ###############################################################
@@ -120,7 +122,7 @@ agg_df["AGE"] = pd.cut(agg_df["AGE"], [0, 18, 23, 30, 40, 70], labels = labels)
 
 
 agg_df['customer_profile'] = agg_df.apply(
-    lambda row: f"{row['REGION']}_{row['PLATFORM']}_{row['GENDER']}_{row['AGE']}", axis=1
+    lambda row: f"{row['REGION'].upper()}_{row['PLATFORM'].upper()}_{row['GENDER'].upper()}_{row['AGE'].upper()}", axis=1
 )
 
 
@@ -141,7 +143,7 @@ maximale en som van de prijs op). Hint: gebruik pd.qcut(agg_df[“PRICE”], 4, 
 ###############################################################
 
 agg_df["SEGMENT"] = pd.cut(agg_df["PRICE"], 4, labels = ["D", "C", "B", "A"])
-
+agg_df.head(30)
 agg_df.groupby("SEGMENT").agg({"PRICE": ["mean", "max", "sum"]})
 
 ###############################################################
@@ -155,8 +157,8 @@ In welk segment valt een 35-jarige Franse vrouw die iOS gebruikt en hoeveel inko
 ###############################################################
 
 # Profielen van Nieuwe gebruikers
-new_user_1 = "tur_android_female_31-40"
-new_user_2 = "fra_ios_female_31-40"
+new_user_1 = "TUR_ANDROID_FEMALE_31-40"
+new_user_2 = "FRA_IOS_FEMALE_31-40"
 
 agg_df[agg_df["customer_profile"] == new_user_1]
 agg_df[agg_df["customer_profile"] == new_user_2]
