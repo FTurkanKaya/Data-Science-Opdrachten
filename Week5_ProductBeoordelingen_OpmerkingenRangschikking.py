@@ -37,7 +37,7 @@ import os
 print(os.getcwd())
 print(os.path.join(os.getcwd(), 'Python_Eurotech'))
 
-sys.path.append(os.path.join(os.getcwd(), 'Python_Eurotech'))
+sys.path.append(os.path.join(os.getcwd(), 'Data-Science-Opdrachten'))
 print(sys.path)
 
 df = pd.read_csv(r"C:\Users\onayk\PycharmProjects\Data-Science-Opdrachten\dataset\amazon_review.csv")
