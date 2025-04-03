@@ -32,6 +32,13 @@ Klik op de links om de resultaten van de individuele vragen te bekijken en te be
 **Let op:** De query's kunnen afwijken afhankelijk van de specifieke gegevens en de SQL Server-configuratie. 
 De screenshots bieden echter een betrouwbare weergave van hoe de query's in de opgegeven omgeving zouden moeten functioneren.
 
+* Het diagram van de Tabellen bij SSMS
+  ![sql_Opdracht2_Diagram Screenshot](https://github.com/FTurkanKaya/Data-Science-Opdrachten/blob/main/SQL_Opdrachten/sql_Opdracht2_Resultaten_Screenshots/Tabellen_Diagraam.png)
+
+
+
+
+
 - Vraag1: Alle medewerkers
 * ![sql_Opdracht2_Vraag1 Screenshot](https://github.com/FTurkanKaya/Data-Science-Opdrachten/blob/main/SQL_Opdrachten/sql_Opdracht2_Resultaten_Screenshots/sql_Opdracht2_Vraag1.png)
 
